@@ -4,6 +4,8 @@
 > 
 >  `💻 Linux Configuration by` [`adilhyz`](https://github.com/S4NKALP).
 
+## 🌏 Overview
+<img align="right" src="https://raw.githubusercontent.com/S4NKALP/gh0stzk-dotfile/main/preview/karla.png" width="404"/>
 
 - **Operating System**: **[`Archlinux`](https://archlinux.org)**
 - **Window Manager**: **[`Bspwm`](https://github.com/baskerville/bspwm)**
@@ -23,7 +25,7 @@ The installer only works for **ARCH** Linux, and based distros.
 <b>Open a terminal in HOME</b>
 - **First download the installer**
 ```sh
-curl https://raw.githubusercontent.com/S4NKALP/gh0stzk-dotfile/master/RiceInstaller -o $HOME/RiceInstaller
+curl https://raw.githubusercontent.com/S4NKALP/gh0stzk-dotfile/main/RiceInstaller -o $HOME/RiceInstaller
 ```
 - **Now give it execute permissions**
 ```sh
