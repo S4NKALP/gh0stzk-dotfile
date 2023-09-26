@@ -1,4 +1,4 @@
-# 🍚 dotfiles v1
+# 🍚 dotfile karla
 <b>⚕  Personal Dotfiles</b>
 >  `🌠 Inspired/fork/edit from ` [`gh0stzk`](https://github.com/gh0stzk/dotfiles)
 > 
