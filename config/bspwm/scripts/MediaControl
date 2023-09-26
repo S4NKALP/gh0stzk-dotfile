@@ -1,0 +1,162 @@
+#!/usr/bin/env bash
+#  ███╗   ███╗███████╗██████╗ ██╗ █████╗      ██████╗ ██████╗ ███╗   ██╗████████╗██████╗  ██████╗ ██╗     
+#  ████╗ ████║██╔════╝██╔══██╗██║██╔══██╗    ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██╔══██╗██╔═══██╗██║     
+#  ██╔████╔██║█████╗  ██║  ██║██║███████║    ██║     ██║   ██║██╔██╗ ██║   ██║   ██████╔╝██║   ██║██║     
+#  ██║╚██╔╝██║██╔══╝  ██║  ██║██║██╔══██║    ██║     ██║   ██║██║╚██╗██║   ██║   ██╔══██╗██║   ██║██║     
+#  ██║ ╚═╝ ██║███████╗██████╔╝██║██║  ██║    ╚██████╗╚██████╔╝██║ ╚████║   ██║   ██║  ██║╚██████╔╝███████╗
+#  ╚═╝     ╚═╝╚══════╝╚═════╝ ╚═╝╚═╝  ╚═╝     ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+#
+#	Author	:	gh0stzk
+#	Url		:	https://github.com/gh0stzk/dotfiles
+#	Info	:	This script uses playerctl and mpc to control the multimedia playback
+#				"stop, pause, play, next, previous" of different players like
+#				spotify, ncmpcpp, clementine, strawberry and others.
+
+
+# uncomment your music players below.
+Control="MPD"
+[ -n "$(pgrep spotify)" ] && Control="spotify"
+# [ -n "$(pgrep brave-bin)" ] && Control="brave-bin"
+# [ -n "$(pgrep rhythmbox)" ] && Control="rhythmbox"
+# [ -n "$(pgrep strawberry)" ] && Control="strawberry"
+
+# Here the cover image will be saved.
+Cover=/tmp/cover.png
+# if cover not found in metadata use this instead
+bkpCover=~/.config/bspwm/assets/fallback.webp
+# mpd music directory for mpd clients.
+mpddir=~/Music
+
+
+case $Control in
+	MPD)
+	case $1 in 
+		--next)
+			mpc -q next
+			;;
+		--previous)
+			mpc -q prev
+			;;
+		--toggle)
+			mpc -q toggle
+			;;
+		--stop)
+			mpc -q stop
+			;;
+		title)
+			title=$(mpc -f %title% current)
+			echo "${title:-Play Something}"
+			;;
+		artist)
+			artist=$(mpc -f %artist% current)
+			echo "${artist:-No Artist}"
+			;;
+		album)
+			album=$(mpc -f %album% current)
+			echo "${album:-No Album}"
+			;;
+		statusicon)
+			statusico=$(mpc status | head -2 | tail -1 | cut -c2-7 )
+
+			case "$statusico" in
+				playin)
+					icon="󰏦"
+					;;
+				paused)
+					icon="󰐌"
+					;;
+				*)
+					icon="󰙧"
+					;;
+			esac
+
+			echo "$icon"
+			;;
+		player)
+			echo "$Control"
+			;;
+		coverloc)
+			ffmpeg -i "$mpddir"/"$(mpc current -f %file%)" "${Cover}" -y &> /dev/null || cp $bkpCover $Cover
+			echo "$Cover"
+			;;
+		nccover)
+			ffmpeg -i "$mpddir"/"$(mpc current -f %file%)" "${Cover}" -y &> /dev/null || cp $bkpCover $Cover
+			;;
+		time)
+			time=$(mpc status %currenttime%)
+			echo "${time:-0:00}"
+			;;
+		length)
+			echo "100"
+			;;
+		percent)
+			perc=$(mpc status | grep "%)" | awk '{ print $4 }' | awk -F% '{ print $1 }' | awk 'sub(/^.{1}/,"")')
+			echo "${perc:-0}"
+			;;
+	esac
+	;;
+	*)
+	case $1 in 
+		--next)
+			playerctl --player=$Control next
+			;;
+		--previous)
+			playerctl --player=$Control previous
+			;;
+		--toggle)
+			playerctl --player=$Control play-pause
+			;;
+		--stop)
+			playerctl --player=$Control stop
+			;;
+		title)
+			title=$(playerctl --player=$Control metadata --format {{title}})
+			echo "${title:-Play Something}"
+			;;
+		artist)
+			artist=$(playerctl --player=$Control metadata --format {{artist}})
+			echo "${artist:-No Artist}"
+			;;
+		album)
+			album=$(playerctl --player=$Control metadata --format {{album}})
+			echo "${album:-No Album}"
+			;;
+		statusicon)
+			statusico=$(playerctl --player="$Control" status)
+
+			case "$statusico" in
+				Playing)
+					icon="󰏦"
+					;;
+				Paused)
+					icon="󰐌"
+					;;
+				*)
+					icon="󰙧"
+					;;
+			esac
+
+			echo "$icon"
+			;;
+		player)
+			echo "$Control"
+			;;
+		coverloc)
+			albumart="$(playerctl --player=$Control metadata mpris:artUrl | sed -e 's/open.spotify.com/i.scdn.co/g')"
+			[ $(playerctl --player=$Control metadata mpris:artUrl) ] && curl -s "$albumart" --output $Cover || cp $bkpCover $Cover 
+			echo "$Cover"
+			;;
+		time)
+			time=$(playerctl --player=$Control position --format "{{ duration(position) }}")
+			echo "${time:-0:00}"
+			;;
+		length)
+			length=$(playerctl --player=$Control metadata mpris:length | sed 's/.\{6\}$//')
+			echo "${length:-0}"
+			;;
+		percent)
+			perc=$(playerctl -p $Control position | sed 's/..\{6\}$//')
+			echo "${perc:-0}"
+			;;
+	esac
+esac 2>/dev/null
