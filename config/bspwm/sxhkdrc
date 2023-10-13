@@ -31,6 +31,11 @@ super + alt + o
 ctrl + shift + alt + {p,r,q,l}
 	{systemctl poweroff, systemctl reboot,bspc quit,lockscreen}
 
+# jgmenu
+~button3
+  xqp 0 $(xdo id -N Bspwm -n root) && jgmenu --csv-file=~/.config/bspwm/scripts/menu.txt --config-file=~/.config/bspwm/jgmenurc
+
+
 # Apps
 alt + {f,g,e,p,w,r,t,s,v,m}
 	{firefox, \

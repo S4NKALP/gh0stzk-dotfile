@@ -67,9 +67,9 @@ clear
 logo "Installing needed packages.."
 
 dependencias=(base-devel rustup pacman-contrib bspwm polybar sxhkd \
-			  alacritty brightnessctl dunst rofi lsd \
+			  alacritty brightnessctl dunst rofi lsd stalonetray \
 			  jq polkit-gnome git playerctl mpd xclip \
-			  ncmpcpp geany ranger mpc picom xdotool \
+			  ncmpcpp geany ranger mpc picom xdo xdotool jgmenu \
 			  feh ueberzug maim pamixer libwebp xdg-user-dirs \
 			  webp-pixbuf-loader xorg-xprop xorg-xkill physlock papirus-icon-theme \
 			  ttf-jetbrains-mono ttf-jetbrains-mono-nerd ttf-terminus-nerd ttf-inconsolata ttf-joypixels \
@@ -261,6 +261,26 @@ if ! command -v tdrop >/dev/null 2>&1; then
 	paru -S tdrop-git --skipreview --noconfirm
 else
 	printf "\n%s%sTdrop is already installed%s\n" "${BLD}" "${CGR}" "${CNC}"
+fi
+
+# Installing Eww
+	if command -v eww >/dev/null 2>&1; then 
+		printf "\n%s%sEww is already installed%s\n" "${BLD}" "${CGR}" "${CNC}"
+	else
+		printf "\n%s%sInstalling Eww, this could take 10 mins or more.%s\n" "${BLD}" "${CBL}" "${CNC}"
+		{
+			sudo pacman -S rustup --noconfirm
+			cd "$HOME" || exit
+			git clone https://github.com/elkowar/eww
+			cd eww || exit
+			cargo build --release --no-default-features --features x11
+			sudo install -m 755 "$HOME/eww/target/release/eww" -t /usr/bin/
+		} && {
+			cd "$HOME" || exit
+			rm -rf {paru-bin,.cargo,.rustup,eww}
+		} || {
+        printf "\n%s%sFailed to install Eww. You may need to install it manually%s\n" "${BLD}" "${CRE}" "${CNC}"
+    }
 fi
 
 ########## ---------- Enabling MPD service ---------- ##########

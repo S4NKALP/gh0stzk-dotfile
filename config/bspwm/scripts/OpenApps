@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-#  ╔═╗╔═╗╔═╗╔═╗  ╦  ╔═╗╦ ╦╔╗╔╔═╗╦ ╦╔═╗╦═╗
-#  ╠═╣╠═╝╠═╝╚═╗  ║  ╠═╣║ ║║║║║  ╠═╣║╣ ╠╦╝
-#  ╩ ╩╩  ╩  ╚═╝  ╩═╝╩ ╩╚═╝╝╚╝╚═╝╩ ╩╚═╝╩╚═
-#	Script to control apps launcher
+#   █████╗ ██████╗ ██████╗ ███████╗    ██╗      █████╗ ██╗   ██╗███╗   ██╗ ██████╗██╗  ██╗███████╗██████╗ 
+#  ██╔══██╗██╔══██╗██╔══██╗██╔════╝    ██║     ██╔══██╗██║   ██║████╗  ██║██╔════╝██║  ██║██╔════╝██╔══██╗
+#  ███████║██████╔╝██████╔╝███████╗    ██║     ███████║██║   ██║██╔██╗ ██║██║     ███████║█████╗  ██████╔╝
+#  ██╔══██║██╔═══╝ ██╔═══╝ ╚════██║    ██║     ██╔══██║██║   ██║██║╚██╗██║██║     ██╔══██║██╔══╝  ██╔══██╗
+#  ██║  ██║██║     ██║     ███████║    ███████╗██║  ██║╚██████╔╝██║ ╚████║╚██████╗██║  ██║███████╗██║  ██║
+#  ╚═╝  ╚═╝╚═╝     ╚═╝     ╚══════╝    ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
 
-
-# From here you can control your favorite applications for all themes.
-
+WIDGET_DIR="$HOME/.config/bspwm/eww"
 case "$1" in
   --menu)
     rofi -show drun \
@@ -72,7 +72,21 @@ case "$1" in
 
   --soundcontrol)
     pavucontrol;;
-
-  *)
-    echo "Option not Valid ";;
-esac
+  
+  # Eww Widgets
+  --powermenu)
+    	eww -c "$WIDGET_DIR" open --toggle powermenu
+	;;
+  --usercard)
+	eww -c "$WIDGET_DIR" open --toggle launchermenu
+	;;
+  --player)
+	eww -c "$WIDGET_DIR" open --toggle music
+	;;
+  --calendar)
+	eww -c "$WIDGET_DIR" open --toggle date
+	;;
+	*)
+	echo "Not Valid Option"
+	;;
+	esac

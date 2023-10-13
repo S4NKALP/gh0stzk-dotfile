@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
-#  ╔╗ ╔═╗╔═╗╦ ╦╔╦╗  - z0mbi3
-#  ╠╩╗╚═╗╠═╝║║║║║║  - https://github.com/gh0stzk/dotfiles
-#  ╚═╝╚═╝╩  ╚╩╝╩ ╩  - z0mbi3.zk@protonmail.com
-
+#
+#  ██████╗ ███████╗██████╗ ██╗    ██╗███╗   ███╗██████╗  ██████╗
+#  ██╔══██╗██╔════╝██╔══██╗██║    ██║████╗ ████║██╔══██╗██╔════╝
+#  ██████╔╝███████╗██████╔╝██║ █╗ ██║██╔████╔██║██████╔╝██║     
+#  ██╔══██╗╚════██║██╔═══╝ ██║███╗██║██║╚██╔╝██║██╔══██╗██║     
+#  ██████╔╝███████║██║     ╚███╔███╔╝██║ ╚═╝ ██║██║  ██║╚██████╗
+#  ╚═════╝ ╚══════╝╚═╝      ╚══╝╚══╝ ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
 
 #  ┬┌┬┐┌─┐┌─┐┬─┐┌┬┐┌─┐┌┐┌┌┬┐  ┬  ┬┌─┐┬─┐┬┌─┐┌┐ ┬  ┌─┐┌─┐
 #  ││││├─┘│ │├┬┘ │ ├─┤│││ │   └┐┌┘├─┤├┬┘│├─┤├┴┐│  ├┤ └─┐
@@ -15,20 +18,18 @@ rice_dir="$HOME/.config/bspwm/karla"
 ## Fix java applications
 export _JAVA_AWT_WM_NONREPARENTING=1
 
-#  ┬ ┬┌─┐┬─┐┬┌─┌─┐┌─┐┌─┐┌─┐┌─┐┌─┐
-#  ││││ │├┬┘├┴┐└─┐├─┘├─┤│  ├┤ └─┐
-#  └┴┘└─┘┴└─┴ ┴└─┘┴  ┴ ┴└─┘└─┘└─┘
+#  ╦ ╦╔═╗╦═╗╦╔═╔═╗╔═╗╔═╗╔═╗╔═╗╔═╗
+#  ║║║║ ║╠╦╝╠╩╗╚═╗╠═╝╠═╣║  ║╣ ╚═╗
+#  ╚╩╝╚═╝╩╚═╩ ╩╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
 
-workspaces() {
-	name=1
-	for monitor in $(bspc query -M); do
-		bspc monitor "${monitor}" -n "$name" -d '1' '2' '3' '4' '5' '6'
-		#bspc monitor ${monitor} -n "$name" -d '' '' '' '' '' ''
-		(( name++ ))
+	# Default 1 monitor with 6 workspaces
+	for monitor in "$(xrandr -q | grep -w 'connected' | cut -d' ' -f1)"; do
+		bspc monitor "$monitor" -d '1' '2' '3' '4' '5' '6'
+		#bspc monitor "$monitor" -d '' '' '' '' '' ''
 	done
-}
 
-workspaces
+	## For two or three monitors configuration see https://github.com/gh0stzk/dotfiles/wiki/Two-or-more-monitors-setup
+
 
 #  ┌┐ ┌─┐┌─┐┬ ┬┌┬┐  ┌─┐┌─┐┌┐┌┌─┐┬┌─┐
 #  ├┴┐└─┐├─┘││││││  │  │ ││││├┤ ││ ┬
@@ -36,6 +37,7 @@ workspaces
 
 bspc config external_rules_command $HOME/.config/bspwm/scripts/ExternalRules
 
+bspc config window_gap			  6
 bspc config split_ratio                   0.51
 bspc config single_monocle                true
 bspc config borderless_monocle            false
@@ -52,15 +54,15 @@ bspc config pointer_action3               resize_corner
 #bspc wm --adopt-orphans
 bspc rule -a scratch sticky=on state=floating focus=on
 
-#  ┬  ┌─┐┬ ┬┌┐┌┌─┐┬ ┬  ┌─┐┌─┐─┐ ┬┬ ┬  ┬─┐┬┌─┐┌─┐┌─┐
-#  │  ├─┤│ │││││  ├─┤  └─┐├┤ ┌┴┬┘└┬┘  ├┬┘││  ├┤ └─┐
-#  ┴─┘┴ ┴└─┘┘└┘└─┘┴ ┴  └─┘└─┘┴ └─ ┴   ┴└─┴└─┘└─┘└─┘
+#  ╔═╗╦ ╦╔╦╗╔═╗╔═╗╔╦╗╔═╗╦═╗╔╦╗
+#  ╠═╣║ ║ ║ ║ ║╚═╗ ║ ╠═╣╠╦╝ ║ 
+#  ╩ ╩╚═╝ ╩ ╚═╝╚═╝ ╩ ╩ ╩╩╚═ ╩
 
 # Set system vars for polybar
 . SetSysVars
 
 # Terminate already running polybar,picom, sxhkd and dunst instances
-processes=("picom" "polybar" "sxhkd" "dunst")
+processes=("eww" "picom" "polybar" "sxhkd" "dunst")
 
 for process in "${processes[@]}"; do
   if pidof -q "$process"; then
@@ -73,14 +75,20 @@ done
 
 # Launch picom // If you have old hardware or encounter problems 
 # uncomment the picom "--legacy-backends" line and comment the current one.
-picom --config "$HOME"/.config/bspwm/picom.conf &
-#picom --legacy-backends --config "$HOME"/.config/bspwm/picom.conf &
+pidof -q picom || { picom --config "$HOME"/.config/bspwm/picom.conf & }
+#pidof -q picom || { picom --legacy-backends --config "$HOME"/.config/bspwm/picom.conf & }
 
 # Launch dunst notification daemon
 dunst -config "$HOME"/.config/bspwm/dunstrc &
 
 # Set random wallpaper for actual rice
 feh -z --no-fehbg --bg-fill ${rice_dir}/walls
+
+# Launch eww daemon
+pidof -q eww || { eww -c "$HOME"/.config/bspwm/eww daemon & }
+
+# Launch stalonetray
+stalonetray -c "$HOME"/.config/bspwm/stalonetrayrc & sleep 0.1 && xdo hide -N stalonetray && touch "/tmp/syshide.lock"
 
 # Reload sxhkd daemon
 sxhkd -c "$HOME"/.config/bspwm/sxhkdrc &
