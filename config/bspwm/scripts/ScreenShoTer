@@ -2,9 +2,8 @@
 #  ╔═╗╔═╗╦═╗╔═╗╔═╗╔╗╔╔═╗╦ ╦╔═╗╔╦╗╔═╗╦═╗
 #  ╚═╗║  ╠╦╝║╣ ║╣ ║║║╚═╗╠═╣║ ║ ║ ║╣ ╠╦╝
 #  ╚═╝╚═╝╩╚═╚═╝╚═╝╝╚╝╚═╝╩ ╩╚═╝ ╩ ╚═╝╩╚═
-
-#	Author : z0mbi3
-#   Url    : https://github.com/gh0stzk/dotfiles
+#
+#
 #   Info   : Script to take screenshots using maim.
 
 timestamp=$(date +%d_%m_%Y-%I-%M-%S)

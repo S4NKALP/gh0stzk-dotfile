@@ -5,9 +5,7 @@
 #  ██╔═██╗ ██╔══██║██╔══██╗██║     ██╔══██║    ██╔══██╗██║██║     ██╔══╝
 #  ██║  ██╗██║  ██║██║  ██║███████╗██║  ██║    ██║  ██║██║╚██████╗███████╗
 #  ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝ ╚═════╝╚══════╝
-#  Author  :  z0mbi3
-#  Url     :  https://github.com/gh0stzk/dotfiles
-#  About   :  This file will configure and launch the rice.
+#
 #
 
 # Set bspwm configuration for Karla
@@ -27,7 +25,7 @@ set_bspwm_config() {
 set_term_config() {
 	sed -i "$HOME"/.config/alacritty/fonts.yml \
 		-e "s/family: .*/family: JetBrainsMono Nerd Font/g" \
-		-e "s/size: .*/size: 10/g"
+		-e "s/size: .*/size: 6/g"
 		
 	sed -i "$HOME"/.config/alacritty/rice-colors.yml \
 		-e "s/colors: .*/colors: *karla_z0mbi3_night/"
@@ -48,7 +46,7 @@ set_stalonetray_config() {
 	sed -i "$HOME"/.config/bspwm/stalonetrayrc \
 		-e "s/background .*/background \"#0E1113\"/" \
 		-e "s/vertical .*/vertical true/" \
-		-e "s/geometry .*/geometry 1x1-50+46/" \
+		-e "s/geometry .*/geometry 1x1-58+46/" \
 		-e "s/grow_gravity .*/grow_gravity NE/" \
 		-e "s/icon_gravity .*/icon_gravity NE/"
 }
@@ -108,6 +106,17 @@ set_jgmenu_colors() {
 		-e 's/color_sel_bg = .*/color_sel_bg = #111517/' \
 		-e 's/color_sel_fg = .*/color_sel_fg = #afb1db/' \
 		-e 's/color_sep_fg = .*/color_sep_fg = #373542/'
+}
+
+# Set Rofi launcher config
+set_launcher_config () {
+	sed -i "$HOME/.config/bspwm/scripts/Launcher.rasi" \
+		-e 's/\(font: \).*/\1"JetBrainsMono Nerd Font Bold 9";/' \
+		-e 's/\(background: \).*/\1#0E1113F7;/' \
+		-e 's/\(background-alt: \).*/\1#0E1113F5;/' \
+		-e 's/\(foreground: \).*/\1#afb1db;/' \
+		-e 's/\(selected: \).*/\1#3d7fea;/' \
+		-e 's/[^/]*-rofi/ka-rofi/'
 }
 
 # Launch the bar

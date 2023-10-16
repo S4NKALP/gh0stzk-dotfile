@@ -1,9 +1,6 @@
+// # z0mbi3 - https://github.com/gh0stzk/dotfiles
 
-
-/** Original Work
- * Author : Aditya Shakya (adi1090x)
- * Github : https://github.com/adi1090x/rofi
- **/
+//----- Main Configuration -----//
 
 configuration {
 	modi: 						"drun";
@@ -19,16 +16,18 @@ configuration {
 	me-accept-entry:			"MousePrimary";
 }
 
-/*****----- Global Properties -----*****/
+//----- Global Properties -----//
+
 * {
-    font:                        "JetBrainsMono Nerd Font Bold 9";
-    background:                  #0E1113F7;
-    background-alt:              #0E1113;
-    foreground:                  #afb1db;
-    selected:                    #3d7fea;
+font: "JetBrainsMono Nerd Font Bold 9";
+background: #1A1B26;
+background-alt: #1A1B26E0;
+foreground: #c0caf5;
+selected: #7aa2f7;
 }
 
-/*****----- Main Window -----*****/
+//----- Main Window -----//
+
 window {
     /* properties for window widget */
     transparency:                "real";
@@ -46,7 +45,8 @@ window {
     background-color:            @background;
 }
 
-/*****----- Main Box -----*****/
+//----- Main Box -----//
+
 mainbox {
     enabled:                     true;
     spacing:                     0px;
@@ -63,7 +63,8 @@ listbox {
     children:                    [ "message", "listview" ];
 }
 
-/*****----- Inputbar -----*****/
+//----- Inputbar -----//
+
 inputbar {
     enabled:                     true;
     spacing:                     10px;
@@ -99,9 +100,8 @@ dummy {
     background-color:            transparent;
 }
 
+//----- Listview -----//
 
-
-/*****----- Listview -----*****/
 listview {
     enabled:                     true;
     columns:                     3;
@@ -120,7 +120,8 @@ listview {
     cursor:                      "default";
 }
 
-/*****----- Elements -----*****/
+//----- Elements -----//
+
 element {
     enabled:                     true;
     spacing:                     10px;
@@ -135,7 +136,7 @@ element normal.normal {
     text-color:                  inherit;
 }
 element selected.normal {
-    background-image: linear-gradient(0deg,#353c52,#7a44e3);
+    background-color:            @selected;
     text-color:                  @background;
 }
 element-icon {
@@ -152,7 +153,8 @@ element-text {
     horizontal-align:            0.0;
 }
 
-/*****----- Message -----*****/
+//----- Message -----//
+
 message {
     background-color:            transparent;
 }

@@ -16,12 +16,8 @@ super + shift + Return
 	OpenApps --floating
 
 # Menu aplicaciones
-alt + @space
+super + d
 	OpenApps --menu
-
-# Theme Selector
-#alt + @space
-#RiceSelector
 
 # Scratchpad
 super + alt + o
@@ -50,8 +46,8 @@ alt + {f,g,e,p,w,r,t,s,v,m}
 	 OpenApps --music}
 
 # Hide/Show Bar (Polybar and/or eww)
-super + {h,u}
-	HideBar {-h,-u}
+#super + {h,u}
+#	HideBar {-h,-u}
 
 # Change transparency on focused window
 ctrl + alt + {plus,minus,t}
