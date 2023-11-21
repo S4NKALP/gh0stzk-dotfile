@@ -1,3 +1,7 @@
+<p align="center">
+  <b> ~ No longer Updates on this.~ </b>
+  </p>
+
 # 🍚 dotfile karla
 <b>⚕  Personal Dotfiles</b>
 >  `🌠 Inspired/fork/edit from ` [`gh0stzk`](https://github.com/gh0stzk/dotfiles)
